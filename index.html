@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Be My Valentine?</title>
+  <title>For Jill ❤️</title>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <style>
     body {
       background: linear-gradient(135deg, #ff9ecf, #ff4d88);
@@ -46,33 +50,49 @@
 <body>
 
   <div>
-    <h1>Will you be my Valentine? 💕</h1>
+    <h1>Jill, will you be my Valentine? 💕</h1>
+
     <button id="yes">Yes 💖</button>
     <button id="no">No 😢</button>
   </div>
 
-<script>
-  const noBtn = document.getElementById("no");
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
 
-  function moveButton() {
-    const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHeight - 60);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  }
+    let yesSize = 1;
 
-  // desktop hover
-  noBtn.addEventListener("mouseover", moveButton);
+    function moveButton() {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
 
-  // mobile touch
-  noBtn.addEventListener("touchstart", moveButton);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
 
-  document.getElementById("yes").onclick = () => {
-    document.body.innerHTML =
-      "<h1 style='font-size:4rem;'>YAYYY ❤️🥰 Best decision ever.</h1>";
-  };
-</script>
+      // make YES grow bigger each dodge
+      yesSize += 0.25;
+      yesBtn.style.transform = `scale(${yesSize})`;
+    }
 
+    // desktop
+    noBtn.addEventListener("mouseover", moveButton);
+
+    // phone
+    noBtn.addEventListener("touchstart", moveButton);
+
+    // YES clicked
+    yesBtn.onclick = () => {
+      document.body.innerHTML =
+        "<h1 style='font-size:4rem;'>YAYYY ❤️ Jill said YES 🥰💘</h1>";
+
+      confetti({
+        particleCount: 250,
+        spread: 120,
+        origin: { y: 0.6 }
+      });
+    };
+  </script>
 
 </body>
 </html>
+
